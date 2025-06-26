@@ -11,7 +11,7 @@ forecast="$(curl "$forecast_url")"
 prob="$(jq '.properties.periods[0].probabilityOfPrecipitation.value' <<< "$forecast")"
 desc="$(jq '.properties.periods[0].detailedForecast' <<< "$forecast")"
 
-curl_header='Content-Type: applicatin/json'
+curl_header='Content-Type: application/json'
 gif_message='
   {"content": "https://tenor.com/view/there-is-a-storm-coming-weather-hurricane-tornado-gif-11678470"}
 '
