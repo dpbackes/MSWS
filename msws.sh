@@ -1,4 +1,4 @@
-state_file="$HOME/.last_msws"
+state_file="$STATE_DIR/.last_msws"
 today="$(date +%Y-%m-%d)"
 forecast_url='https://api.weather.gov/gridpoints/MKX/38,64/forecast'
 
@@ -10,6 +10,12 @@ fi
 forecast="$(curl "$forecast_url")" 
 prob="$(jq '.properties.periods[0].probabilityOfPrecipitation.value' <<< "$forecast")"
 desc="$(jq '.properties.periods[0].detailedForecast' <<< "$forecast")"
+
+curl_header='Content-Type: applicatin/json'
+gif_message='
+  {"content": "https://tenor.com/view/there-is-a-storm-coming-weather-hurricane-tornado-gif-11678470"}
+'
+detail_message="{\"content\": $desc}"
 
 if [ "$prob" -gt 79 ] || [[ "$desc" == *"thunder"* ]]; then
   echo "There is a storm coming!"
